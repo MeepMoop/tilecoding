@@ -6,7 +6,7 @@ class tilecoder:
     self._dims = np.array(dims) + 1
     self._limits = np.array(limits)
     self._tilings = tilings
-    self._alpha = step_size
+    self._alpha = step_size / self._tilings
     self._n_dims = len(self._dims)
     self._tiling_size = np.prod(self._dims)
     self._hash_vec = np.array([1])
@@ -32,7 +32,7 @@ class tilecoder:
   def _set_val_tiles(self, tiles, val):
     est = self._get_val_tiles(tiles)
     for i in range(self._tilings):
-      self._tiles[tiles[i]] += self._alpha * (val - est) / self._tilings
+      self._tiles[tiles[i]] += self._alpha * (val - est)
 
   def __getitem__(self, x):
     return self._get_val_tiles(self._get_tiles(x))
