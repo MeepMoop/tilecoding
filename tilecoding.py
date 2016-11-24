@@ -44,7 +44,7 @@ def example():
   lims = [(0, 2.0 * np.pi)] * 2
   tilings = 10
 
-  # create swarm
+  # create tile coder
   T = tilecoder(dims, lims, tilings)
 
   # target function with gaussian noise
