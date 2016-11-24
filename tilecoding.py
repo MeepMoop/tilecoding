@@ -17,22 +17,17 @@ class tilecoder:
     self._offsets = np.arange(float(self._tilings)) / self._tilings
 
   def _get_tiles(self, x):
-    tiles = [0] * self._tilings
+    tiles = np.arange(self._tilings) * self._tiling_size
+    coords = ((x - self._limits[:, 0]) / self._ranges) * (self._dims - 1)
     for i in range(self._tilings):
-      coords = np.floor(((x - self._limits[:, 0]) / self._ranges) * (self._dims - 1) + self._offsets[i])
-      tiles[i] = i * self._tiling_size + int(np.dot(self._hash_vec, coords))
+      tiles[i] += int(np.dot(self._hash_vec, np.floor(coords + self._offsets[i])))
     return tiles
 
   def _get_val_tiles(self, tiles):
-    val = 0
-    for i in range(self._tilings):
-      val += self._tiles[tiles[i]]
-    return val
+    return np.sum(self._tiles[tiles])
 
   def _set_val_tiles(self, tiles, val):
-    est = self._get_val_tiles(tiles)
-    for i in range(self._tilings):
-      self._tiles[tiles[i]] += self._alpha * (val - est)
+    self._tiles[tiles] += self._alpha * (val - self._get_val_tiles(tiles))
 
   def __getitem__(self, x):
     return self._get_val_tiles(self._get_tiles(x))
