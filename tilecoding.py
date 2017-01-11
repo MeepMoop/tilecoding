@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import numpy as np
 
 class tilecoder:
@@ -14,14 +15,14 @@ class tilecoder:
       self._hash_vec = np.hstack([self._hash_vec, dims[i] * self._hash_vec[-1]])
     self._ranges = self._limits[:, 1] - self._limits[:, 0]
     self._tiles = np.array([0.0] * (self._tilings * self._tiling_size))
+    self._tile_ind = np.array([0] * self._tilings)
     self._offsets = np.arange(float(self._tilings)) / self._tilings
 
   def _get_tiles(self, x):
-    tiles = np.arange(self._tilings) * self._tiling_size
     coords = ((x - self._limits[:, 0]) / self._ranges) * (self._dims - 1)
     for i in range(self._tilings):
-      tiles[i] += int(np.dot(self._hash_vec, np.floor(coords + self._offsets[i])))
-    return tiles
+      self._tile_ind[i] = int(i * self._tiling_size + np.dot(self._hash_vec, np.floor(coords + self._offsets[i])))
+    return self._tile_ind
 
   def _get_val_tiles(self, tiles):
     return np.sum(self._tiles[tiles])
@@ -62,10 +63,10 @@ def example():
       T[xi, yi] = zi
       mse += (T[xi, yi] - zi) ** 2
     mse /= batch_size
-    print 'samples:', (iters + 1) * batch_size, 'batch_mse:', mse
+    print('samples:', (iters + 1) * batch_size, 'batch_mse:', mse)
 
   # get learned function
-  print 'mapping function...'
+  print('mapping function...')
   res = 100
   x = np.arange(lims[0][0], lims[0][1], (lims[0][1] - lims[0][0]) / res)
   y = np.arange(lims[1][0], lims[1][1], (lims[1][1] - lims[1][0]) / res)
