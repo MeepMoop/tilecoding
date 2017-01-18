@@ -22,6 +22,7 @@ class tilecoder:
     coords = ((x - self._limits[:, 0]) / self._ranges) * (self._dims - 1)
     for i in range(self._tilings):
       self._tile_ind[i] = int(i * self._tiling_size + np.dot(self._hash_vec, np.floor(coords + self._offsets[i])))
+      
   def set_step_size(step_size):
     self._alpha = step_size / self._tilings
 
