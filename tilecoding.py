@@ -22,18 +22,16 @@ class tilecoder:
     coords = ((x - self._limits[:, 0]) / self._ranges) * (self._dims - 1)
     for i in range(self._tilings):
       self._tile_ind[i] = int(i * self._tiling_size + np.dot(self._hash_vec, np.floor(coords + self._offsets[i])))
-    return self._tile_ind
-
   def set_step_size(step_size):
     self._alpha = step_size / self._tilings
 
   def __getitem__(self, x):
-    tiles = self._get_tiles(x)
-    return np.sum(self._tiles[tiles])
+    self._get_tiles(x)
+    return np.sum(self._tiles[self._tile_ind])
 
   def __setitem__(self, x, val):
-    tiles = self._get_tiles(x)
-    self._tiles[tiles] += self._alpha * (val - np.sum(self._tiles[tiles]))
+    self._get_tiles(x)
+    self._tiles[self._tile_ind] += self._alpha * (val - np.sum(self._tiles[self._tile_ind]))
 
 def example():
   import matplotlib.pyplot as plt
