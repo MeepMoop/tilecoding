@@ -24,17 +24,16 @@ class tilecoder:
       self._tile_ind[i] = int(i * self._tiling_size + np.dot(self._hash_vec, np.floor(coords + self._offsets[i])))
     return self._tile_ind
 
-  def _get_val_tiles(self, tiles):
-    return np.sum(self._tiles[tiles])
-
-  def _set_val_tiles(self, tiles, val):
-    self._tiles[tiles] += self._alpha * (val - self._get_val_tiles(tiles))
+  def set_step_size(step_size):
+    self._alpha = step_size / self._tilings
 
   def __getitem__(self, x):
-    return self._get_val_tiles(self._get_tiles(x))
+    tiles = self._get_tiles(x)
+    return np.sum(self._tiles[tiles])
 
   def __setitem__(self, x, val):
-    self._set_val_tiles(self._get_tiles(x), val)
+    tiles = self._get_tiles(x)
+    self._tiles[tiles] += self._alpha * (val - np.sum(self._tiles[tiles]))
 
 def example():
   import matplotlib.pyplot as plt
