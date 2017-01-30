@@ -38,6 +38,7 @@ class tilecoder:
 def example():
   import matplotlib.pyplot as plt
   from mpl_toolkits.mplot3d import Axes3D
+  import time
 
   # tile coder dimensions, limits, and tilings
   dims = [8, 8]
@@ -54,6 +55,7 @@ def example():
     return np.sin(x) + np.cos(y) + noise * np.random.randn() * 0.1
 
   # randomly sample target function until convergence
+  timer = time.time()
   batch_size = 100
   for iters in range(100):
     mse = 0.0
@@ -65,6 +67,7 @@ def example():
       mse += (T[xi, yi] - zi) ** 2
     mse /= batch_size
     print('samples:', (iters + 1) * batch_size, 'batch_mse:', mse)
+  print('elapsed time:', time.time() - timer)
 
   # get learned function
   print('mapping function...')
