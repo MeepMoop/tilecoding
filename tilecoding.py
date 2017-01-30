@@ -15,9 +15,9 @@ class tilecoder:
     self._tiling_size = np.prod(self._dims)
     self._tiles = np.array([0.0] * (self._tilings * self._tiling_size))
     self._tile_ind = np.array([0] * self._tilings)
-    self._hash_vec = np.array([1])
-    for i in range(len(dims) - 1):
-      self._hash_vec = np.hstack([self._hash_vec, dims[i] * self._hash_vec[-1]])
+    self._hash_vec = np.ones(self._n_dims)#
+    for i in range(self._n_dims - 1):
+      self._hash_vec[i + 1] = dims[i] * self._hash_vec[i]
 
   def _get_tiles(self, x):
     coords = ((x - self._limits[:, 0]) * (self._dims - self._offset_vec) / self._ranges)[0]
