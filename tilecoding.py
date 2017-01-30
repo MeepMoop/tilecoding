@@ -6,27 +6,25 @@ class tilecoder:
   def __init__(self, dims, limits, tilings, step_size=0.1, offset_vec=None):
     self._n_dims = len(dims)
     self._tilings = tilings
-    self._offset_vec = np.ones([1, self._n_dims]) if offset_vec is None else np.array([offset_vec])
-    self._offsets = np.dot(np.diag(np.arange(float(self._tilings))), np.repeat(self._offset_vec, self._tilings, 0)) / self._tilings
-    self._dims = np.array(dims) + self._offset_vec
+    self._offset_vec = np.ones(self._n_dims) if offset_vec is None else np.array(offset_vec)
+    self._offsets = np.dot(np.diag(np.arange(float(self._tilings))), np.repeat([self._offset_vec], self._tilings, 0)) / self._tilings
+    self._dims = np.array(dims)
+    self._tiling_dims = self._dims + self._offset_vec
     self._limits = np.array(limits)
     self._ranges = self._limits[:, 1] - self._limits[:, 0]
     self._alpha = step_size / self._tilings
-    self._tiling_size = np.prod(self._dims)
-    self._tiles = np.array([0.0] * (self._tilings * self._tiling_size))
-    self._tile_ind = np.array([0] * self._tilings)
-    self._hash_vec = np.ones(self._n_dims)#
+    self._tiling_size = np.prod(self._tiling_dims)
+    self._tiles = np.zeros(self._tilings * self._tiling_size)
+    self._tile_ind = np.zeros(self._tilings, dtype=np.int)
+    self._hash_vec = np.ones(self._n_dims, dtype=np.int)
     for i in range(self._n_dims - 1):
-      self._hash_vec[i + 1] = dims[i] * self._hash_vec[i]
+      self._hash_vec[i + 1] = self._tiling_dims[i] * self._hash_vec[i]
 
   def _get_tiles(self, x):
-    coords = ((x - self._limits[:, 0]) * (self._dims - self._offset_vec) / self._ranges)[0]
+    coords = ((x - self._limits[:, 0]) * self._dims / self._ranges)
     for i in range(self._tilings):
-      self._tile_ind[i] = int(i * self._tiling_size + np.dot(self._hash_vec, np.floor(coords + self._offsets[i])))
-      
-  def set_step_size(self, step_size):
-    self._alpha = step_size / self._tilings
-
+      self._tile_ind[i] = i * self._tiling_size + np.dot(self._hash_vec, (coords + self._offsets[i]).astype(int))
+  
   def __getitem__(self, x):
     self._get_tiles(x)
     return np.sum(self._tiles[self._tile_ind])
@@ -34,6 +32,9 @@ class tilecoder:
   def __setitem__(self, x, val):
     self._get_tiles(x)
     self._tiles[self._tile_ind] += self._alpha * (val - np.sum(self._tiles[self._tile_ind]))
+
+  def set_step_size(self, step_size):
+    self._alpha = step_size / self._tilings
 
 def example():
   import matplotlib.pyplot as plt
@@ -54,8 +55,8 @@ def example():
     return np.sin(x) + np.cos(y) + noise * np.random.randn() * 0.1
 
   # randomly sample target function until convergence
-  batch_size = 50
-  for iters in range(200):
+  batch_size = 100
+  for iters in range(100):
     mse = 0.0
     for b in range(batch_size):
       xi = lims[0][0] + np.random.random() * (lims[0][1] - lims[0][0])
