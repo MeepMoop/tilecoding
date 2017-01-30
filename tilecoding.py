@@ -6,7 +6,7 @@ class tilecoder:
   def __init__(self, dims, limits, tilings, step_size=0.1, offset_vec=None):
     self._n_dims = len(dims)
     self._tilings = tilings
-    self._offset_vec = np.array([offset_vec]) if offset_vec is not None else np.ones([1, self._n_dims])
+    self._offset_vec = np.ones([1, self._n_dims]) if offset_vec is None else np.array([offset_vec])
     self._dims = np.array(dims) + self._offset_vec
     self._limits = np.array(limits)
     self._alpha = step_size / self._tilings
