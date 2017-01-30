@@ -7,17 +7,17 @@ class tilecoder:
     self._n_dims = len(dims)
     self._tilings = tilings
     self._offset_vec = np.ones([1, self._n_dims]) if offset_vec is None else np.array([offset_vec])
+    self._offsets = np.dot(np.diag(np.arange(float(self._tilings))), np.repeat(self._offset_vec, self._tilings, 0)) / self._tilings
     self._dims = np.array(dims) + self._offset_vec
     self._limits = np.array(limits)
+    self._ranges = self._limits[:, 1] - self._limits[:, 0]
     self._alpha = step_size / self._tilings
     self._tiling_size = np.prod(self._dims)
+    self._tiles = np.array([0.0] * (self._tilings * self._tiling_size))
+    self._tile_ind = np.array([0] * self._tilings)
     self._hash_vec = np.array([1])
     for i in range(len(dims) - 1):
       self._hash_vec = np.hstack([self._hash_vec, dims[i] * self._hash_vec[-1]])
-    self._ranges = self._limits[:, 1] - self._limits[:, 0]
-    self._tiles = np.array([0.0] * (self._tilings * self._tiling_size))
-    self._tile_ind = np.array([0] * self._tilings)
-    self._offsets = np.dot(np.diag(np.arange(float(self._tilings))), np.repeat(self._offset_vec, self._tilings, 0)) / self._tilings
 
   def _get_tiles(self, x):
     coords = ((x - self._limits[:, 0]) * (self._dims - self._offset_vec) / self._ranges)[0]
