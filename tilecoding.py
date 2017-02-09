@@ -18,11 +18,11 @@ class tilecoder:
     self._hash_vec = np.ones(self._n_dims, dtype=np.int)
     for i in range(self._n_dims - 1):
       self._hash_vec[i + 1] = self._tiling_dims[i] * self._hash_vec[i]
+    self._last_x = (-1.0, -1.0)
 
   def _get_tiles(self, x):
-    coords = (x - self._limits[:, 0]) * self._norm_dims
-    for i in range(self._tilings):
-      self._tile_ind[i] = i * self._tiling_size + np.dot(self._hash_vec, (coords + self._offsets[i]).astype(int))
+    off_coords = (np.repeat([(x - self._limits[:, 0]) * self._norm_dims], self._tilings, 0) + self._offsets).astype(int).T
+    self._tile_ind = self._tiling_size * np.arange(self._tilings) + np.dot(self._hash_vec, off_coords)
   
   def __getitem__(self, x):
     self._get_tiles(x)
