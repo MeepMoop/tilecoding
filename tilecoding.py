@@ -18,8 +18,7 @@ class tilecoder:
     self._hash_vec = np.ones(self._n_dims, dtype=np.int)
     for i in range(self._n_dims - 1):
       self._hash_vec[i + 1] = self._tiling_dims[i] * self._hash_vec[i]
-    self._last_x = (-1.0, -1.0)
-
+  
   def _get_tiles(self, x):
     off_coords = (np.repeat([(x - self._limits[:, 0]) * self._norm_dims], self._tilings, 0) + self._offsets).astype(int).T
     self._tile_ind = self._tiling_size * np.arange(self._tilings) + np.dot(self._hash_vec, off_coords)
@@ -40,7 +39,7 @@ def example():
   from mpl_toolkits.mplot3d import Axes3D
   import time
 
-  # tile coder dimensions, limits, and tilings
+  # tile coder dimensions, limits, tilings, step size, and offset vector
   dims = [8, 8]
   lims = [(0, 2.0 * np.pi)] * 2
   tilings = 8
