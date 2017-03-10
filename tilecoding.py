@@ -7,7 +7,8 @@ class tilecoder:
     self._n_dims = len(dims)
     self._tilings = tilings
     self._offset_vec = np.ones(self._n_dims, dtype=np.int) if offset_vec is None else np.array(offset_vec, dtype=np.int)
-    self._offsets = np.dot(np.diag(np.arange(float(self._tilings))), np.repeat([self._offset_vec], self._tilings, 0)) / self._tilings
+    self._offsets = self._offset_vec * np.repeat([np.arange(self._tilings)], self._n_dims, 0).T / self._tilings
+    print(self._offsets)
     self._limits = np.array(limits)
     self._norm_dims = np.array(dims) / (self._limits[:, 1] - self._limits[:, 0])
     self._alpha = step_size / self._tilings
