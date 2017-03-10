@@ -31,6 +31,6 @@ print T[3.3, -2.1, 11.1, 0.7]
 
 # Examples
 <p align="center">
-  <img src="https://raw.githubusercontent.com/MeepMoop/tilecoding/master/examples/tilecoding_sincos.png"><br>
+  <img src="https://github.com/MeepMoop/tilecoding/blob/master/examples/tc_sincos.png?raw=true"><br>
   8x8 tile coder with 8 tilings approximating f(x, y) = sin(x) + cos(y) + <i>N</i>(0, 0.1)<br><br>
 </p>
