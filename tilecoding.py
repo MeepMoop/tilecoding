@@ -70,7 +70,7 @@ def example():
 
   # get learned function
   print('mapping function...')
-  res = 100
+  res = 200
   x = np.arange(lims[0][0], lims[0][1], (lims[0][1] - lims[0][0]) / res)
   y = np.arange(lims[1][0], lims[1][1], (lims[1][1] - lims[1][0]) / res)
   z = np.zeros([len(y), len(x)])
