@@ -3,18 +3,18 @@ from __future__ import print_function
 import numpy as np
 
 class tilecoder:
-  def __init__(self, dims, limits, tilings, step_size=0.1, offset_vec=None):
-    self._offset_vec = np.ones(len(dims), dtype=np.int) if offset_vec is None else np.array(offset_vec, dtype=np.int)
-    self._offsets = self._offset_vec * np.repeat([np.arange(tilings)], len(dims), 0).T / float(tilings)
+  def __init__(self, dims, limits, tilings, step_size=0.1, offset=lambda n: 2 * np.arange(n) + 1):
+    offset_vec = offset(len(dims))
+    tiling_dims = np.array(dims, dtype=np.int) + offset_vec
+    self._offsets = offset_vec * np.repeat([np.arange(tilings)], len(dims), 0).T / float(tilings)
     self._limits = np.array(limits)
     self._norm_dims = np.array(dims) / (self._limits[:, 1] - self._limits[:, 0])
     self._alpha = step_size / tilings
-    self._tiling_dims = np.array(dims, dtype=np.int) + self._offset_vec
-    self._tiles = np.zeros(tilings * np.prod(self._tiling_dims))
-    self._tile_base_ind = np.prod(self._tiling_dims) * np.arange(tilings)
+    self._tiles = np.zeros(tilings * np.prod(tiling_dims))
+    self._tile_base_ind = np.prod(tiling_dims) * np.arange(tilings)
     self._hash_vec = np.ones(len(dims), dtype=np.int)
     for i in range(len(dims) - 1):
-      self._hash_vec[i + 1] = self._tiling_dims[i] * self._hash_vec[i]
+      self._hash_vec[i + 1] = tiling_dims[i] * self._hash_vec[i]
   
   def _get_tiles(self, x):
     off_coords = ((x - self._limits[:, 0]) * self._norm_dims + self._offsets).astype(int)
@@ -38,10 +38,9 @@ def example():
   lims = [(0, 2.0 * np.pi)] * 2
   tilings = 8
   alpha = 0.1
-  offset_vec = [1, 3]
 
   # create tile coder
-  T = tilecoder(dims, lims, tilings, alpha, offset_vec)
+  T = tilecoder(dims, lims, tilings, alpha)
 
   # target function with gaussian noise
   def target_ftn(x, y, noise=True):
@@ -67,10 +66,10 @@ def example():
   res = 200
   x = np.arange(lims[0][0], lims[0][1], (lims[0][1] - lims[0][0]) / res)
   y = np.arange(lims[1][0], lims[1][1], (lims[1][1] - lims[1][0]) / res)
-  z = np.zeros([len(y), len(x)])
+  z = np.zeros([len(x), len(y)])
   for i in range(len(x)):
     for j in range(len(y)):
-      z[j, i] = T[x[i], y[j]]
+      z[i, j] = T[x[i], y[j]]
 
   # plot
   fig = plt.figure()
