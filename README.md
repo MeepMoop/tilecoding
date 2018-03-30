@@ -10,23 +10,27 @@
 # Usage
 
 ```python
+import numpy as np
 from tilecoding import tilecoder
 
-# grid dimensions and tilings
+# grid dimensions, value limits of each dimension, and tilings
 dims = [8, 10, 6, 10]
+lims = [(3.0, 7.5), (-4.4, 4.2), (9.6, 12.7), (0.0, 1.0)]
 tilings = 10
 
-# value limits of each dimension (min, max)
-lims = [(3.0, 7.5), (-4.4, 4.2), (9.6, 12.7), (0.0, 1.0)]
+# create tilecoder
+T = tilecoder(dims, lims, tilings)
 
-# create tilecoder with step size 0.1
-T = tilecoder(dims, lims, tilings, 0.1)
+# init weights and step size
+theta = np.zeros(T.n_tiles)
+alpha = 0.1 / tilings
 
 # training iteration with value 5.5 at location (3.3, -2.1, 11.1, 0.7)
-T[3.3, -2.1, 11.1, 0.7] = 5.5
+phi = T[3.3, -2.1, 11.1, 0.7]
+theta[phi] += alpha * (5.5 - theta[phi].sum())
 
 # get approximated value at (3.3, -2.1, 11.1, 0.7)
-print T[3.3, -2.1, 11.1, 0.7]
+print(theta[phi].sum())
 ```
 
 # Examples
