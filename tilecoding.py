@@ -28,7 +28,7 @@ def example():
   from mpl_toolkits.mplot3d import Axes3D
   import time
 
-  # tile coder dimensions, limits, tilings, step size, and offset vector
+  # tile coder dimensions, limits, tilings
   dims = [8, 8]
   lims = [(0, 2.0 * np.pi)] * 2
   tilings = 8
@@ -53,8 +53,9 @@ def example():
       xi = lims[0][0] + np.random.random() * (lims[0][1] - lims[0][0])
       yi = lims[1][0] + np.random.random() * (lims[1][1] - lims[1][0])
       zi = target_ftn(xi, yi)
-      theta[T[xi, yi]] += alpha * (zi - theta[T[xi, yi]].sum())
-      mse += (theta[T[xi, yi]].sum() - zi) ** 2
+      phi = T[xi, yi]
+      theta[phi] += alpha * (zi - theta[phi].sum())
+      mse += (theta[phi].sum() - zi) ** 2
     mse /= batch_size
     print('samples:', (iters + 1) * batch_size, 'batch_mse:', mse)
   print('elapsed time:', time.time() - timer)
