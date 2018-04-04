@@ -1,6 +1,6 @@
 # Tile Coding
 
-[Tile coding](https://webdocs.cs.ualberta.ca/~sutton/book/8/node6.html) is a coarse coding function approximation method that uses several overlapping offset grids (tilings) to approximate a continuous space.
+[Tile coding](http://incompleteideas.net/book/ebook/node88.html#SECTION04232000000000000000) is a coarse coding function approximation method that uses several overlapping offset grids (tilings) to approximate a continuous space.
 
 # Dependencies
 
