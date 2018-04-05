@@ -55,7 +55,7 @@ def example():
       zi = target_ftn(xi, yi)
       phi = T[xi, yi]
       theta[phi] += alpha * (zi - theta[phi].sum())
-      mse += (theta[phi].sum() - zi) ** 2
+      mse += (zi - theta[phi].sum()) ** 2
     mse /= batch_size
     print('samples:', (iters + 1) * batch_size, 'batch_mse:', mse)
   print('elapsed time:', time.time() - timer)
