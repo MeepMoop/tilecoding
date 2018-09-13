@@ -10,9 +10,7 @@ class tilecoder:
     self._limits = np.array(limits)
     self._norm_dims = np.array(dims) / (self._limits[:, 1] - self._limits[:, 0])
     self._tile_base_ind = np.prod(tiling_dims) * np.arange(tilings)
-    self._hash_vec = np.ones(len(dims), dtype=np.int)
-    for i in range(len(dims) - 1):
-      self._hash_vec[i + 1] = tiling_dims[i] * self._hash_vec[i]
+    self._hash_vec = np.array([np.prod(tiling_dims[0:i]) for i in range(len(dims))])
     self._n_tiles = tilings * np.prod(tiling_dims)
 
   @property
@@ -37,7 +35,7 @@ def example():
   T = tilecoder(dims, lims, tilings)
 
   # learning params
-  theta = np.zeros(T.n_tiles)
+  w = np.zeros(T.n_tiles)
   alpha = 0.1 / tilings
 
   # target function with gaussian noise
@@ -54,8 +52,8 @@ def example():
       yi = lims[1][0] + np.random.random() * (lims[1][1] - lims[1][0])
       zi = target_ftn(xi, yi)
       phi = T[xi, yi]
-      theta[phi] += alpha * (zi - theta[phi].sum())
-      mse += (theta[phi].sum() - zi) ** 2
+      w[phi] += alpha * (zi - w[phi].sum())
+      mse += (w[phi].sum() - zi) ** 2
     mse /= batch_size
     print('samples:', (iters + 1) * batch_size, 'batch_mse:', mse)
   print('elapsed time:', time.time() - timer)
@@ -68,7 +66,7 @@ def example():
   z = np.zeros([len(x), len(y)])
   for i in range(len(x)):
     for j in range(len(y)):
-      z[i, j] = theta[T[x[i], y[j]]].sum()
+      z[i, j] = w[T[x[i], y[j]]].sum()
 
   # plot
   fig = plt.figure()

@@ -22,15 +22,15 @@ tilings = 10
 T = tilecoder(dims, lims, tilings)
 
 # init weights and step size
-theta = np.zeros(T.n_tiles)
+w = np.zeros(T.n_tiles)
 alpha = 0.1 / tilings
 
 # training iteration with value 5.5 at location (3.3, -2.1, 11.1, 0.7)
 phi = T[3.3, -2.1, 11.1, 0.7]
-theta[phi] += alpha * (5.5 - theta[phi].sum())
+w[phi] += alpha * (5.5 - w[phi].sum())
 
 # get approximated value at (3.3, -2.1, 11.1, 0.7)
-print(theta[phi].sum())
+print(w[phi].sum())
 ```
 
 # Examples
