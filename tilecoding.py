@@ -4,9 +4,8 @@ import numpy as np
 
 class tilecoder:
   def __init__(self, dims, limits, tilings, offset=lambda n: 2 * np.arange(n) + 1):
-    offset_vec = offset(len(dims))
-    tiling_dims = np.array(dims, dtype=np.int) + offset_vec
-    self._offsets = offset_vec * np.repeat([np.arange(tilings)], len(dims), 0).T / float(tilings)
+    tiling_dims = np.array(dims, dtype=np.int) + 1
+    self._offsets = offset(len(dims)) * np.repeat([np.arange(tilings)], len(dims), 0).T / float(tilings) % 1
     self._limits = np.array(limits)
     self._norm_dims = np.array(dims) / (self._limits[:, 1] - self._limits[:, 0])
     self._tile_base_ind = np.prod(tiling_dims) * np.arange(tilings)
