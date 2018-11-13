@@ -11,7 +11,7 @@
 
 ```python
 import numpy as np
-from tilecoding import tilecoder
+from tilecoding import TileCoder
 
 # grid dimensions, value limits of each dimension, and tilings
 dims = [8, 10, 6, 10]
@@ -19,7 +19,7 @@ lims = [(3.0, 7.5), (-4.4, 4.2), (9.6, 12.7), (0.0, 1.0)]
 tilings = 10
 
 # create tilecoder
-T = tilecoder(dims, lims, tilings)
+T = TileCoder(dims, lims, tilings)
 
 # init weights and step size
 w = np.zeros(T.n_tiles)

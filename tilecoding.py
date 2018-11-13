@@ -2,7 +2,7 @@
 from __future__ import print_function
 import numpy as np
 
-class tilecoder:
+class TileCoder:
   def __init__(self, dims, limits, tilings, offset=lambda n: 2 * np.arange(n) + 1):
     tiling_dims = np.array(dims, dtype=np.int) + 1
     self._offsets = offset(len(dims)) * np.repeat([np.arange(tilings)], len(dims), 0).T / float(tilings) % 1
@@ -31,7 +31,7 @@ def example():
   tilings = 8
 
   # create tile coder
-  T = tilecoder(dims, lims, tilings)
+  T = TileCoder(dims, lims, tilings)
 
   # learning params
   w = np.zeros(T.n_tiles)
