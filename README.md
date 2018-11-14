@@ -126,7 +126,7 @@ We can check how good our learned approximation is by evaluating our approximate
 >>> tiles = T[2.5, 3.1]
 >>> w[tiles].sum()
 -0.40287006579746704
-# compare to true value at (0.5, 1.2)
+# compare to true value at (2.5, 3.1)
 >>> np.sin(2.5) + np.cos(3.1)
 -0.40066300616932304
 ```
