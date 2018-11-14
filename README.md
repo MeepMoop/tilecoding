@@ -98,7 +98,7 @@ def target_fn(x, y):
   return np.sin(x) + np.cos(y) + noise
 ```
 
-Our approximate (linear) function can be represented with a set of weights, one for each tile in the tile coder's tilings. The function's output can then be computed as a dot product between this weight vector and the tile-coded feature vector for a given coordinate. We can get the total number of tiles (the feature vector length) in the tile coder's tilings using ```T.n_tiles```:
+Our approximate (linear) function can be represented with a set of weights, one for each tile in the tile coder's tilings. The function's output can then be computed as a dot product between this weight vector and the tile-coded feature vector for a given coordinate. We can get the total number of tiles across all of the tile coder's tilings (the feature vector length) using ```T.n_tiles```:
 
 ```python
 # linear function weight vector
