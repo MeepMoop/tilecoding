@@ -19,7 +19,7 @@ Once instantiated, it uses ```__getitem__()``` to take a coordinate of a continu
 
 ## A Simple Example
 
-Suppose we want to tile a continuous 2-dimensional space where the values of dimension range from ```0``` to ```10```. For this example, we'll have a tiling consist of ```10``` tiles spanning the range of values for each dimension (A ```10×10``` tiling), and use ```8``` offset tilings.
+Suppose we want to tile a continuous 2-dimensional space where the values of each dimension range from ```0``` to ```10```. For this example, we'll have tilings which consist of ```10``` tiles spanning the complete range of values for each dimension (A ```10×10``` tiling), and use ```8``` offset tilings.
 
 First, we import the tile coder:
 
