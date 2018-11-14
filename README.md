@@ -64,7 +64,7 @@ array([ 81, 202, 323, 444, 565, 686, 807, 928])
 array([105, 226, 347, 468, 590, 722, 832, 953])
 ```
 
-Below is a visualization of how the active tiles for location ```(3.6, 7.21)``` are computed from the ```8``` (asymmetrically offset) tilings):
+Below is a visualization of how the active tiles of the ```8``` (asymmetrically offset) tilings are computed for location ```(3.6, 7.21)```:
 
 <p align="center">
   <img src="images/tc_vis.gif" width=384>
