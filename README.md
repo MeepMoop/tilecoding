@@ -13,13 +13,13 @@ A tile coder is instantiated with the following arguments:
 * A list of the number of tiles spanning each dimension
 * A list of tuples containing the value limits of each dimension
 * The number of tilings
-* Optional: A function computing a list of tiling offsets along each dimension, given the number of dimensions (Default: Consecutive odd numbers)
+* Optional: A function returning a list of tiling offsets along each dimension, given the number of dimensions (Default: Consecutive odd numbers)
 
 Once instantiated, it uses ```__getitem__()``` to take a coordinate of a continuous space and return a numpy array with the indices of the active tiles. That is, it implicitly produces a binary vector of active tiles by returning the locations of the vector which have a ```1```.
 
 ## A Simple Example
 
-Suppose we want to tile a continuous 2-dimensional space where the values of each dimension range from ```0``` to ```10```. For this example, we'll have tilings which consist of ```10``` tiles spanning the complete range of values for each dimension (A ```10×10``` tiling), and use ```8``` offset tilings.
+Suppose we want to tile a continuous 2-dimensional space where the values of each dimension range from ```0``` to ```10```. For this example, we'll have tilings which consist of ```10``` tiles spanning the complete range of values for each dimension (A ```10×10``` tiling), and use ```8``` tilings (with the default tiling offsets).
 
 First, we import the tile coder:
 
@@ -64,7 +64,7 @@ array([ 81, 202, 323, 444, 565, 686, 807, 928])
 array([105, 226, 347, 468, 590, 722, 832, 953])
 ```
 
-Below is a visualization of how the active tiles of the ```8``` (asymmetrically offset) tilings are computed for location ```(3.6, 7.21)```:
+Below is a visualization of how the active tiles of the ```8``` tilings are computed for location ```(3.6, 7.21)```:
 
 <p align="center">
   <img src="images/tc_vis.gif" width=384>
