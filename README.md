@@ -160,5 +160,5 @@ plt.show()
 ```
 
 <p align="center">
-  <img src="images/tc_sincos.png" width=80%>
+  <img src="images/tc_sincos.png" width=480>
 </p>
