@@ -105,7 +105,7 @@ Our approximate (linear) function can be represented with a set of weights, one 
 w = np.zeros(T.n_tiles)
 ```
 
-We'll then take 10,000 online samples (i.e. we don't store them and only work with the most recent sample) at random locations of the target function. We can update our weights using [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent) (SGD) in the *mean squared error* between the samples and our linear function's estimates. Note that because we're using a *binary representation*, we can evaluate our linear function using the indices of active tiles with ```w[active_tiles].sum()```, as opposed to computing a dot product between our weight vector and an explicit binary vector.
+We'll then take 10,000 online samples (i.e. we don't store them and only work with the most recent sample) at random locations of the target function. We can update our weights using [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent) (SGD) in the *mean squared error* between the samples and our linear function's estimates. Note that because we're using a *binary representation*, we can evaluate our linear function using the indices of the active tiles with ```w[active_tiles].sum()```, as opposed to computing a dot product between our weight vector and an explicit binary feature vector.
 
 ```python
 # step size for SGD
