@@ -72,7 +72,7 @@ Below is a visualization of how the active tiles of the ```8``` tilings are comp
 
 ## Function Approximation Example
 
-Suppose we want to approximate a continuous 2-dimensional function with a function that's linear in the tile coded binary representation. Let's approximate ```f(x, y) = sin(x) + cos(y)``` where the values of both ```x``` and ```y``` range from ```0``` to ```2π```, and we only have access to *noisy*, *online* samples of the function (within the specified range).
+Suppose we want to approximate a continuous 2-dimensional function with a function that's linear in a tile-coded vector of binary features. Let's approximate ```f(x, y) = sin(x) + cos(y)``` where the values of both ```x``` and ```y``` range from ```0``` to ```2π```, and we only have access to *noisy*, *online* samples of the function (within the specified range).
 
 We'll use a tile coder with ```8``` tilings, each consisting of ```8``` tiles spanning the range of values in each direction (An ```8×8``` tiling):
 
@@ -98,7 +98,7 @@ def target_fn(x, y):
   return np.sin(x) + np.cos(y) + noise
 ```
 
-Our approximate (linear) function can be represented with a set of weights, one for each tile in the tile coder's tilings. We can get the total number of tiles in the tile coder's tilings using ```T.n_tiles```:
+Our approximate (linear) function can be represented with a set of weights, one for each tile in the tile coder's tilings. The function's output can then be computed as a dot product between this weight vector and the tile-coded feature vector for a given coordinate. We can get the total number of tiles (the feature vector length) in the tile coder's tilings using ```T.n_tiles```:
 
 ```python
 # linear function weight vector
