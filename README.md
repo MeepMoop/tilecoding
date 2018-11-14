@@ -64,6 +64,12 @@ array([ 81, 202, 323, 444, 565, 686, 807, 928])
 array([105, 226, 347, 468, 590, 722, 832, 953])
 ```
 
+Below is a visualization of how the active tiles for location ```(3.6, 7.21)``` are computed from the ```8``` (asymmetrically offset) tilings):
+
+<p align="center">
+  <img src="images/tc_vis.gif" width=384>
+</p>
+
 ## Function Approximation Example
 
 Suppose we want to approximate a continuous 2-dimensional function with a function that's linear in the tile coded binary representation. Let's approximate ```f(x, y) = sin(x) + cos(y)``` where the values of both ```x``` and ```y``` range from ```0``` to ```2π```, and we only have access to *noisy*, *online* samples of the function (within the specified range).
