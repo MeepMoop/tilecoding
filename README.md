@@ -13,7 +13,7 @@ A tile coder is instantiated with the following arguments:
 * A list of the number of tiles spanning each dimension
 * A list of tuples containing the value limits of each dimension
 * The number of tilings
-* (Optional) A function computing the offset amount for each dimension
+* Optional: A function computing a list of tiling offsets along each dimension, given the number of dimensions (Default: Consecutive odd numbers)
 
 Once instantiated, it uses ```__getitem__()``` to take a coordinate of a continuous space and return a numpy array with the indices of the active tiles. That is, it implicitly produces a binary vector of active tiles by returning the locations of the vector which have a ```1```.
 
