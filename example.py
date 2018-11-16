@@ -7,12 +7,12 @@ def example():
   from tilecoding import TileCoder
 
   # tile coder dimensions, limits, tilings
-  dims = [8, 8]
+  tiles_per_dim = [8, 8]
   lims = [(0.0, 2.0 * np.pi), (0.0, 2.0 * np.pi)]
   tilings = 8
 
   # create tile coder
-  T = TileCoder(dims, lims, tilings)
+  T = TileCoder(tiles_per_dim, lims, tilings)
 
   # target function with gaussian noise
   def target_ftn(x, y):

@@ -31,7 +31,7 @@ Next, we specify the number of tiles spanning each dimension (tiling dimensions)
 
 ```python
 # number of tile spanning each dimension
-dims = [10, 10]
+tiles_per_dim = [10, 10]
 # value limits of each dimension
 lims = [(0.0, 10.0), (0.0, 10.0)]
 # number of tilings
@@ -41,7 +41,7 @@ tilings = 8
 We can now instantiate a tile coder (which we'll denote ```T```):
 
 ```python
-T = TileCoder(dims, lims, tilings)
+T = TileCoder(tiles_per_dim, lims, tilings)
 ```
 
 The tile coder can then return the active tiles for given ```(x, y)``` coordinates in this 2-dimensional space via ```T[x, y]```:
@@ -81,12 +81,12 @@ import numpy as np
 from tilecoding import TileCoder
 
 # tile coder dimensions, limits, tilings
-dims = [8, 8]
+tiles_per_dim = [8, 8]
 lims = [(0.0, 2.0 * np.pi), (0.0, 2.0 * np.pi)]
 tilings = 8
 
 # create tile coder
-T = TileCoder(dims, lims, tilings)
+T = TileCoder(tiles_per_dim, lims, tilings)
 ```
 
 The following function will produce a noisy sample from our target function:
@@ -94,8 +94,7 @@ The following function will produce a noisy sample from our target function:
 ```python
 # target function with gaussian noise
 def target_fn(x, y):
-  noise = 0.1 * np.random.randn()
-  return np.sin(x) + np.cos(y) + noise
+  return np.sin(x) + np.cos(y) + 0.1 * np.random.randn()
 ```
 
 Our approximate (linear) function can be represented with a set of weights, one for each tile in the tile coder's tilings. The function's output can then be computed as a dot product between this weight vector and the tile-coded feature vector for a given coordinate. We can get the total number of tiles across all of the tile coder's tilings (the feature vector length) using ```T.n_tiles```:
