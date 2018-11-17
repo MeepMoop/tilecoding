@@ -16,7 +16,7 @@ A tile coder is instantiated with the following arguments:
 * (Optional) A function returning a list of tiling offsets along each dimension, given the number of dimensions
   * Default: Consecutive odd numbers (Miller & Glanz, 1996)
 
-Once instantiated, it uses ```__getitem__()``` to take a coordinate of a continuous space and return a numpy array with the indices of the active tiles. That is, it implicitly produces a binary vector of active tiles by returning the locations of the vector which have a ```1```.
+Once instantiated, it uses ```__getitem__()``` to take a coordinate of a continuous space and return a numpy array with the indices of the active tiles. That is, it implicitly produces a binary vector of active tiles by returning the locations of the vector which have a ```1```. The instance's ```n_tiles``` property will give the total number of tiles across all of the tilings, which corresponds to the tile-coded binary feature vector's length.
 
 ## A Simple Example
 
