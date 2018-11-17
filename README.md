@@ -113,13 +113,11 @@ alpha = 0.1 / tilings
 
 # learn from 10,000 samples
 for i in range(10000):
-  # get a random location within the value limits
+   # get noisy sample from target function at random location
   x, y = 2.0 * np.pi * np.random.rand(2)
-  # get a noisy sample from our target function at that location
   target = target_fn(x, y)
-  # get the active tiles at that location
+  # get prediction from active tiles at that location
   tiles = T[x, y]
-  # get our current prediction at that location
   pred = w[tiles].sum()
   # update weights with SGD
   w[tiles] += alpha * (target - pred)
