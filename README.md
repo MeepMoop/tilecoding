@@ -81,7 +81,7 @@ We'll use a tile coder with ```8``` tilings, each consisting of ```8``` tiles sp
 import numpy as np
 from tilecoding import TileCoder
 
-# tile coder dimensions, limits, tilings
+# tile coder tiling dimensions, value limits, number of tilings
 tiles_per_dim = [8, 8]
 lims = [(0.0, 2.0 * np.pi), (0.0, 2.0 * np.pi)]
 tilings = 8
