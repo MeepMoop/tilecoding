@@ -8,7 +8,7 @@ It works by covering a continuous space with *tiles*, where each tile has a corr
   <img src="images/tcoverview.png">
 </p>
 
-Tile coding lays tiles over the continuous space through the use of ```tilings```. A tiling can be thought of as an n-dimensional grid of tiles (with potentially different scales of values along each dimensions), and multiple overlapping offset tilings are placed over the space. A useful property of laying tiles this way is that the number of tiles intersected will always be the number of tilings used, as a point can't intersect two tiles within the same tiling:
+Tile coding lays tiles over the continuous space through the use of ```tilings```. A tiling can be thought of as an n-dimensional grid of tiles (with potentially different scales of values along each dimension), and multiple overlapping offset tilings are placed over the space. A useful property of laying tiles this way is that the number of tiles intersected will always be the number of tilings used, as a point can't intersect two tiles within the same tiling:
 
 <p align="center">
   <img src="images/tilingstotiles.png">
