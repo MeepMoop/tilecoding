@@ -1,6 +1,6 @@
 # Tile Coding
 
-[Tile coding](http://incompleteideas.net/book/ebook/node88.html#SECTION04232000000000000000) is a coarse coding method which uses several offsetted tilings to produce binary feature vectors for points in a continuous space.
+[Tile coding](http://incompleteideas.net/book/ebook/node88.html#SECTION04232000000000000000) is a coarse coding method which uses several offsetted tilings to produce binary feature vectors for points in a continuous space. At a high level, tile coding is used to convert a point in an n-dimensional space into a binary feature vector such that the vectors of nearby points have many elements in common, and vice versa with distant points.
 
 It works by covering a continuous space with *tiles*, where each tile has a corresponding index in a vector. The tiles can be any arbitrary shape, but are typically n-dimensional hyperrectangles for computational convenience. The binary feature vector for a point in the space would have a ```1``` at the indices of the tiles intersected by the point, and a ```0``` every else:
 
