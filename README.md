@@ -2,7 +2,7 @@
 
 [Tile coding](http://incompleteideas.net/book/ebook/node88.html#SECTION04232000000000000000) is a coarse coding method which uses several overlapping offset tilings to produce binary feature vectors for points in a continuous space.
 
-It works by covering a continuous points with *tiles* (which can be any arbitrary shape), where each tile has a corresponding index in a vector. The binary feature vector for a point in the space would have a ```1``` at the indices of the tiles intersected by the point, and a ```0``` every else:
+It works by covering a continuous space with *tiles* (which can be any arbitrary shape), where each tile has a corresponding index in a vector. The binary feature vector for a point in the space would have a ```1``` at the indices of the tiles intersected by the point, and a ```0``` every else:
 
 <p align="center">
   <img src="images/tcoverview.png">
