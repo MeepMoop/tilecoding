@@ -2,13 +2,13 @@
 
 [Tile coding](http://incompleteideas.net/book/ebook/node88.html#SECTION04232000000000000000) is a coarse coding method which uses several overlapping offset tilings to produce binary feature vectors for points in a continuous space.
 
-It works by covering a continuous space with *tiles* (which can be any arbitrary shape), where each tile has a corresponding index in a vector. The binary feature vector for a point in the space would have a ```1``` at the indices of the tiles intersected by the point, and a ```0``` every else:
+It works by covering a continuous space with *tiles*, where each tile has a corresponding index in a vector. The tiles can be any arbitrary shape, but are typically n-dimensional hyperrectangles for computational convenience. The binary feature vector for a point in the space would have a ```1``` at the indices of the tiles intersected by the point, and a ```0``` every else:
 
 <p align="center">
   <img src="images/tcoverview.png">
 </p>
 
-Tile coding lays tiles over the continuous space through the use of ```tilings```. A tiling can be thought of as an n-dimensional grid of tiles, and multiple overlapping offset tilings are placed over the space. A useful property of laying tiles this way is that the number of tiles intersected will always be the number of tilings used, as a point can't intersect two tiles within the same tiling:
+Tile coding lays tiles over the continuous space through the use of ```tilings```. A tiling can be thought of as an n-dimensional grid of tiles (with potentially different scales of values along each dimensions), and multiple overlapping offset tilings are placed over the space. A useful property of laying tiles this way is that the number of tiles intersected will always be the number of tilings used, as a point can't intersect two tiles within the same tiling:
 
 <p align="center">
   <img src="images/tilingstotiles.png">
