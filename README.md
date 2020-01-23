@@ -148,7 +148,7 @@ We can check how good our learned approximation is by evaluating our approximate
 -0.40066300616932304
 ```
 
-Alternatively, we can plot a surface of our learned approximation (f, with matplotlib):
+Alternatively, we can plot a surface of our learned approximation (e.g., with matplotlib):
 
 ```python
 import matplotlib.pyplot as plt
